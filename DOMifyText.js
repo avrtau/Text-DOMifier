@@ -2,7 +2,6 @@
 
 const DOMifyText = (() => {
   const inputText = Symbol("inputText");
-  const words = Symbol("words");
   const elementOptions = Symbol("elementOptions");
 
   const getRandomID = Symbol("getRandomID");
@@ -12,7 +11,7 @@ const DOMifyText = (() => {
      * Create a DOMifier
      * @class
      * @param {string} text - Text to be DOMified.
-     * @param {string} [elementType = div] - Element type to be created.
+     * @param {string} [elementType="div"] - Element type to be created.
      * @param {string[]} [classes] - Classes to be added to the DOM Element.
      * @param {bool} [withIDs] - When true, random IDs will be added to the generated elements.
      */
@@ -28,7 +27,7 @@ const DOMifyText = (() => {
 
     /**Gets an Array of DOM elements
      * @readonly
-     * @returns {DOMElement[]} - An Array of DOMElements created from the intial text.
+     * @returns {Array<DOMElement>} - An Array of DOMElements created from the intial text.
     */
     get DOMElements() {
       return this[inputText]
@@ -38,7 +37,7 @@ const DOMifyText = (() => {
           const options = this[elementOptions];
           const element = document.createElement(options.elementType);
 
-          if (options.elementClasses !== [] && options.elementClasses instanceof Array) {
+          if (options.elementClasses.length !== 0 && options.elementClasses instanceof Array) {
             element.className = options.elementClasses.join(' ');
           }
 
@@ -66,8 +65,8 @@ const DOMifyText = (() => {
     }
 
     /**
-     * 
-     * @param {string[]} classes - Appends more classes to the Elements.
+     * Appends more classes to the Elements.
+     * @param {string[]} classes - Array of classes to be added.
      * @returns {DOMifier} - An instance of DOMifier (for chaining purposes).
      */
     addClasses (classes = []) {
