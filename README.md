@@ -2,7 +2,7 @@
 
 
 ## Constructor
-#### constructor(text[, elementType&#x3D;&quot;div&quot;, classes, withIDs]) 
+### constructor(text[, elementType&#x3D;&quot;div&quot;, classes, withIDs]) 
 
 Create a DOMifier
 
@@ -13,16 +13,16 @@ Create a DOMifier
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| text | `string`  | - Text to be DOMified. | &nbsp; |
-| elementType&#x3D;&quot;div&quot; | `string`  | - Element type to be created. | *Optional* |
-| classes | `Array.<string>`  | - Classes to be added to the DOM Element. | *Optional* |
-| withIDs | `bool`  | - When true, random IDs will be added to the generated elements. | *Optional* |
+| text | `string`  | Text to be DOMified. | &nbsp; |
+| elementType&#x3D;&quot;div&quot; | `string`  | Element type to be created. | *Optional* |
+| classes | `Array.<string>`  | Classes to be added to the DOM Element. | *Optional* |
+| withIDs | `bool`  | When true, random IDs will be added to the generated elements. | *Optional* |
 
 
 
 ## Getters / Setters
 
-#### DOMElements() 
+### DOMElements() 
 
 Gets an Array of DOM elements
 
@@ -30,11 +30,11 @@ Gets an Array of DOM elements
 ##### Returns
 
 
-- `Array.<DOMElement>`  - An Array of DOMElements created from the intial text.
+- `Array.<DOMElement>`  An Array of DOMElements created from the intial text.
 
 
 
-#### text(newText) 
+### text(newText) 
 
 Sets a text to be DOMified.
 
@@ -43,11 +43,11 @@ Sets a text to be DOMified.
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| newText | `string`  | - Text to be DOMified. | &nbsp; |
+| newText | `string`  | Text to be DOMified. | &nbsp; |
 
 
 
-#### classes(newClasses) 
+### classes(newClasses) 
 
 Sets new classes
 
@@ -56,13 +56,13 @@ Sets new classes
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| newClasses | `Array.<sting>`  | - new Element classes to be set. | &nbsp; |
+| newClasses | `Array.<sting>`  | new Element classes to be set. | &nbsp; |
 
 
 
 ## Methods
 
-#### addClasses(classes) 
+### addClasses(classes) 
 
 Appends more classes to the Elements.
 
@@ -73,7 +73,7 @@ Appends more classes to the Elements.
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| classes | `Array.<string>`  | - Array of classes to be added. | &nbsp; |
+| classes | `Array.<string>`  | Array of classes to be added. | &nbsp; |
 
 
 
