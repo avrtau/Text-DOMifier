@@ -1,11 +1,8 @@
-# Untitled Project 
+# Text DOMifier
 
 
-
-### DOMifyText.js
-
-
-#### constructor(text[, elementType, classes, withIDs]) 
+## Constructor
+#### constructor(text[, elementType&#x3D;&quot;div&quot;, classes, withIDs]) 
 
 Create a DOMifier
 
@@ -17,41 +14,29 @@ Create a DOMifier
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
 | text | `string`  | - Text to be DOMified. | &nbsp; |
-| elementType | `string`  | = div] - Element type to be created. | *Optional* |
+| elementType&#x3D;&quot;div&quot; | `string`  | - Element type to be created. | *Optional* |
 | classes | `Array.<string>`  | - Classes to be added to the DOM Element. | *Optional* |
 | withIDs | `bool`  | - When true, random IDs will be added to the generated elements. | *Optional* |
 
 
 
-
-##### Returns
-
-
-- `Void`
-
-
+## Getters / Setters
 
 #### DOMElements() 
 
 Gets an Array of DOM elements
 
 
-
-
-
-
 ##### Returns
 
 
-- `Array.&lt;DOMElement&gt;`  - An Array of DOMElements created from the intial text.
+- `Array.<DOMElement>`  - An Array of DOMElements created from the intial text.
 
 
 
 #### text(newText) 
 
 Sets a text to be DOMified.
-
-
 
 
 ##### Parameters
@@ -62,19 +47,9 @@ Sets a text to be DOMified.
 
 
 
-
-##### Returns
-
-
-- `Void`
-
-
-
 #### classes(newClasses) 
 
 Sets new classes
-
-
 
 
 ##### Parameters
@@ -85,17 +60,11 @@ Sets new classes
 
 
 
-
-##### Returns
-
-
-- `Void`
-
-
+## Methods
 
 #### addClasses(classes) 
 
-
+Appends more classes to the Elements.
 
 
 
@@ -104,7 +73,7 @@ Sets new classes
 
 | Name | Type | Description |  |
 | ---- | ---- | ----------- | -------- |
-| classes | `Array.<string>`  | - Appends more classes to the Elements. | &nbsp; |
+| classes | `Array.<string>`  | - Array of classes to be added. | &nbsp; |
 
 
 
