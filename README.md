@@ -2,9 +2,16 @@
 Creates an Array of DOMElements for every word in a given text.
 
 ## Getting Started
+### Option 1:
 Clone the repo and include the DOMifyText.js in the `<head>` of your HTML file:
 ```html
 <script src="../your/scripts/directory/path/DOMifyText.js"></script>
+```
+
+### Option 2:
+Get the latest build from a CDN (jsdelivr.net)
+```html
+<script src="https://cdn.jsdelivr.net/gh/avrtau/Text-DOMifier/min/DOMifyText.min.js"></script>
 ```
 
 ## Usage
