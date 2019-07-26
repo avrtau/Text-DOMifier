@@ -12,12 +12,12 @@ Clone the repo and include the DOMifyText.js in the `<head>` of your HTML file:
 #### new DOMifyText (text[, elementType&#x3D;&quot;div&quot;, classes, withIDs]) 
 ##### Parameters
 
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| text | `string`  | Text to be DOMified. | &nbsp; |
-| elementType&#x3D;&quot;div&quot; | `string`  | Element type to be created. | *Optional* |
-| classes | `Array.<string>`  | Classes to be added to the DOM Element. | *Optional* |
-| withIDs | `bool`  | When true, random IDs will be added to the generated elements. | *Optional* |
+| Name | Type | Description |  | Default |
+| ---- | ---- | ----------- | -------- | ------- |
+| text | `string`  | Text to be DOMified. | &nbsp; | &nbsp; |
+| elementType&#x3D;&quot;div&quot; | `string`  | Element type to be created. | *Optional* | "div" |
+| classes | `Array.<string>`  | Classes to be added to the DOM Element. | *Optional* | [] |
+| withIDs | `bool`  | When true, random IDs will be added to the generated elements. | *Optional* | false |
 
 Create a new instance of the `DOMifyText` object:
 ```javascript
