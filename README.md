@@ -22,9 +22,10 @@ Get the latest build from a CDN (jsdelivr.net)
 | Name | Type | Description |  | Default |
 | ---- | ---- | ----------- | -------- | ------- |
 | text | `string`  | Text to be DOMified. | &nbsp; | &nbsp; |
-| elementType&#x3D;&quot;div&quot; | `string`  | Element type to be created. | *Optional* | "div" |
-| classes | `Array.<string>`  | Classes to be added to the DOM Element. | *Optional* | [] |
-| withIDs | `bool`  | When true, random IDs will be added to the generated elements. | *Optional* | false |
+| options | `Object`  | Parameters for the created elements. | *Optional* | &nbsp; |
+| &nbsp;&nbsp;options.*elementType* | `string`  | Element type to be created. | *Optional* | "div" |
+| &nbsp;&nbsp;options.*classes* | `Array.<string>`  | Classes to be added to the DOM Element. | *Optional* | [] |
+| &nbsp;&nbsp;options.*withIDs* | `bool`  | When true, random(ish) IDs will be added to the generated elements. | *Optional* | false |
 
 Create a new instance of the `DOMifyText` object:
 ```javascript
@@ -40,7 +41,7 @@ const domifier = new DOMifyText("My Text");
 #### Specifying a DOM Element
 Will dress each word in the specified DOM Element type
 ```javascript
-const domifier = new DOMifyText("My Text", "p") // will create <p> elements
+const domifier = new DOMifyText("My Text", {"elementType": "p"}) // will create <p> elements
 
 domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 // Output:
@@ -51,7 +52,7 @@ domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 #### Specifying classes
 Will add a class attribute to each element with specified classes
 ```javascript
-const domifier = new DOMifyText("My Text", null, ["class1", "class2"]);
+const domifier = new DOMifyText("My Text", {"classes": ["class1", "class2"]});
 
 domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 // Output:
@@ -62,7 +63,7 @@ domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 #### Random(ish) generated ids
 Will add a random (`Math.random()`) id to each element
 ```javascript
-const domifier = new DOMifyText("My Text", null, null, true);
+const domifier = new DOMifyText("My Text", {"withIDs": true});
 
 domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 // Output:
@@ -81,7 +82,12 @@ Gets an Array of DOM elements
 - `Array.<DOMElement>`  - An Array of DOMElements created from the intial text.
 
 ```javascript
-const domifier = new DOMifyText("My Text", "p", ["class1", "class2"], true);
+const elementOptions = {
+  elementType: "p",
+  elementClasses: ["class1", "class2"],
+  setIDs: true
+};
+const domifier = new DOMifyText("My Text", elementOptions);
 
 console.log(domifier.DOMElements);
 // Output:
@@ -122,7 +128,9 @@ Sets new classes
 | newClasses | `Array.<sting>`  | new Element classes to be set. | &nbsp; |
 
 ```javascript
-const domifier = new DOMifyText("My Text", null, ["class1", "class2"]);
+const domifier = new DOMifyText("My Text", {elementClasses: ["class1", "class2"]});
+
+// Change classes to "class3"
 domifier.classes = ["class3"];
 
 domifier.DOMElements.forEach(e => console.log(e.outerHTML));
@@ -150,7 +158,9 @@ Appends more classes to the Elements.
 
 - `DOMifier`  - An instance of DOMifier (for chaining purposes).
 ```javascript
-const domifier = new DOMifyText("My Text", null, ["class1", "class2"]);
+const domifier = new DOMifyText("My Text", {elementClasses: ["class1", "class2"]});
+
+// Add a class "class3" to the elements and log the result:
 domifier.addClasses(["class3"]).DOMElements.forEach(e => console.log(e.outerHTML));
 
 // Output:

@@ -6,23 +6,25 @@ const DOMifyText = (() => {
 
   const getRandomID = Symbol("getRandomID");
 
+  const defaultOptions = {
+    elementType: "div",
+    elementClasses: [],
+    setIDs: false
+  };
+
   return class DOMifier {
     /**
      * Create a DOMifier
      * @class
-     * @param {string} text - Text to be DOMified.
-     * @param {string} [elementType="div"] - Element type to be created.
-     * @param {string[]} [classes] - Classes to be added to the DOM Element.
-     * @param {bool} [withIDs] - When true, random IDs will be added to the generated elements.
+     * @param {string} text Text to be DOMified.
+     * @param {Object} [options] Parameters for the created elements.
+     * @param {string} [options.elementType] Element type to be created.
+     * @param {string[]} [options.classes] Classes to be added to the DOM Element.
+     * @param {bool} [options.withIDs] When true, random(ish) IDs will be added to the generated elements.
      */
-    constructor (text = "", elementType, classes = [], withIDs = false) {
-      elementType = elementType || "div";
+    constructor (text = "", options = {}) {
       this[inputText] = text;
-      this[elementOptions] = {
-        elementType: elementType.toUpperCase(),
-        elementClasses: classes,
-        setIDs: withIDs
-      };
+      this[elementOptions] = Object.assign({}, defaultOptions, options);
     }
 
     /**Gets an Array of DOM elements
@@ -35,7 +37,7 @@ const DOMifyText = (() => {
         .map(word => {
           const wordTextNode = document.createTextNode(word);
           const options = this[elementOptions];
-          const element = document.createElement(options.elementType);
+          const element = document.createElement(options.elementType.toUpperCase());
 
           if (options.elementClasses.length !== 0 && options.elementClasses instanceof Array) {
             element.className = options.elementClasses.join(' ');
