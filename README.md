@@ -16,7 +16,7 @@ Get the latest build from a CDN (jsdelivr.net)
 
 ## Usage
 ### Instantiation
-#### new DOMifyText (text[, elementType&#x3D;&quot;div&quot;, classes, withIDs]) 
+#### new DOMifyText (text[, options])
 ##### Parameters
 
 | Name | Type | Description |  | Default |
