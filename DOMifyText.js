@@ -9,7 +9,8 @@ const DOMifyText = (() => {
   const defaultOptions = {
     elementType: "div",
     elementClasses: [],
-    setIDs: false
+    setIDs: false,
+    delimiter: " "
   };
 
   return class DOMifier {
@@ -20,6 +21,7 @@ const DOMifyText = (() => {
      * @param {Object} [options] Parameters for the created elements.
      * @param {string} [options.elementType] Element type to be created.
      * @param {string[]} [options.classes] Classes to be added to the DOM Element.
+     * @param {string|RegExp} [options.delimiter] A delimiter or a regular expression to divide words into elements.
      * @param {bool} [options.withIDs] When true, random(ish) IDs will be added to the generated elements.
      */
     constructor (text = "", options = {}) {
@@ -33,7 +35,7 @@ const DOMifyText = (() => {
     */
     get DOMElements() {
       return this[inputText]
-        .split(' ')
+        .split(this[elementOptions].delimiter)
         .map(word => {
           const wordTextNode = document.createTextNode(word);
           const options = this[elementOptions];
@@ -64,6 +66,14 @@ const DOMifyText = (() => {
      */
     set classes (newClasses = []) {
       this[elementOptions].elementClasses = newClasses;
+    }
+
+    /**
+     * Sets a new delimiter
+     * @param {string} delimiter A new delimiter
+     */
+    set delimiter (newDelimiter = " ") {
+      this[elementOptions].delimiter = newDelimiter;
     }
 
     /**

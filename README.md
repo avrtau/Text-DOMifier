@@ -23,9 +23,10 @@ Get the latest build from a CDN (jsdelivr.net)
 | ---- | ---- | ----------- | -------- | ------- |
 | text | `string`  | Text to be DOMified. | &nbsp; | &nbsp; |
 | options | `Object`  | Parameters for the created elements. | *Optional* | &nbsp; |
-| &nbsp;&nbsp;options.*elementType* | `string`  | Element type to be created. | *Optional* | "div" |
-| &nbsp;&nbsp;options.*classes* | `Array.<string>`  | Classes to be added to the DOM Element. | *Optional* | [] |
-| &nbsp;&nbsp;options.*withIDs* | `bool`  | When true, random(ish) IDs will be added to the generated elements. | *Optional* | false |
+| options.*elementType* | `string`  | Element type to be created. | *Optional* | "div" |
+| options.*classes* | `Array.<string>`  | Classes to be added to the DOM Element. | *Optional* | [] |
+| options.*delimiter* | `string` \| `RegExp`  | A delimiter or a regular expression to divide words into elements. | *Optional* | " " (space) |
+| options.*withIDs* | `bool`  | When true, random(ish) IDs will be added to the generated elements. | *Optional* | false |
 
 Create a new instance of the `DOMifyText` object:
 ```javascript
@@ -58,6 +59,30 @@ domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 // Output:
 // <div class="class1 class2">My</div>
 // <div class="class1 class2">Text</div>
+```
+
+#### Specifying a delimiter
+Sets a delimiter by which to divide the words into elements. *(Default: " ")*
+
+##### Delimit by a string:
+```javascript
+const domifier = new DOMifyText("First text,Second text", {"delimiter": ","});
+
+domifier.DOMElements.forEach(element => console.log(element.outerHTML));
+// Output:
+// <div>First text</div>
+// <div>Second text</div>
+```
+
+##### Delimit by a RegEx:
+```javascript
+const domifier = new DOMifyText("First text,Second text", {"delimiter": /[\s,]/});
+domifier.DOMElements.forEach(element => console.log(element.outerHTML));
+// Output:
+// <div>First</div>
+// <div>text</div>
+// <div>Second</div>
+// <div>text</div>
 ```
 
 #### Random(ish) generated ids
@@ -97,15 +122,15 @@ console.log(domifier.DOMElements);
 ```
 
 
-### text(newText) 
+#### text(newText) 
 
 Sets a text to be DOMified.
 
 ##### Parameters
 
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| newText | `string`  | Text to be DOMified. | &nbsp; |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| newText | `string`  | Text to be DOMified. |
 
 ```javascript
 const domifier = new DOMifyText("");
@@ -117,15 +142,15 @@ domifier.DOMElements.forEach(e => console.log(e.outerHTML));
 // <div>Text</div>
 ```
 
-### classes(newClasses) 
+#### classes(newClasses) 
 
 Sets new classes
 
 ##### Parameters
 
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| newClasses | `Array.<sting>`  | new Element classes to be set. | &nbsp; |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| newClasses | `Array.<sting>`  | new Element classes to be set. |
 
 ```javascript
 const domifier = new DOMifyText("My Text", {elementClasses: ["class1", "class2"]});
@@ -139,18 +164,43 @@ domifier.DOMElements.forEach(e => console.log(e.outerHTML));
 // <div class="class3">Text</div>
 ```
 
+#### delimiter(newDelimiter)
+
+Sets a new delimiter
+
+##### Parameters
+
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| newDelimiter | `string`  | A new delimiter to be set. |
+
+```javascript
+const domifier = new DOMifyText("Fist text,Second text");
+
+domifier.DOMElements.forEach(e => console.log(e.outerHTML));
+// Output:
+// <div>First</div>
+// <div>text,Second</div>
+// <div>text</div
+
+domifier.delimiter = ",";
+// Output:
+// <div>First text</div>
+// <div>Second text</div>
+```
+
 ### Methods
 
-### addClasses(classes) 
+#### addClasses(classes) 
 
 Appends more classes to the Elements.
 
 
 ##### Parameters
 
-| Name | Type | Description |  |
-| ---- | ---- | ----------- | -------- |
-| classes | `Array.<string>`  | Array of classes to be added. | &nbsp; |
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| classes | `Array.<string>`  | Array of classes to be added. |
 
 
 ##### Returns
