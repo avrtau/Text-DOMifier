@@ -27,6 +27,11 @@ Get the latest build from a CDN (jsdelivr.net)
 | options.*elementClasses* | `string` \| `string[]`  | Classes to be added to the DOM Element. | *Optional* | [] |
 | options.*delimiter* | `string` \| `RegExp`  | A delimiter or a regular expression to divide words into elements. | *Optional* | " " (space) |
 | options.*setIDs* | `bool`  | When true, random(ish) IDs will be added to the generated elements. | *Optional* | false |
+| options.*group* | `Object`  | Grouping options for the elements. | *Optional* | |
+| options.group.*elementsPerGroup* | `number`  | Defines a number of elements per group. | *Optional* | 1 |
+| options.group.*groupContainer* | `string`  | Element type of a group. | *Optional* | "div" |
+| options.group.*groupClasses* | `string` \| `string[]`  | Classes to be added to the group DOM element. | *Optional* | [] |
+| options.group.*groupElementClasses* | `string` \| <br>`string[]` \|<br> `string[string[]]`  | Classes to be added to the elements of the group. | *Optional* | [] |
 
 Create a new instance of the `DOMifyText` object:
 ```javascript
@@ -103,6 +108,129 @@ domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 // <div id="8m6uebm9pia">text</div>
 ```
 
+### Element Groups
+
+It is possible to group the elements using the `options.group` object. The DOM element type of each element is defined by `options.elementType` (Default: "div").
+
+| Name | Type | Description | Default |
+| ---- | ------- | -------- | ------- |
+| group.*elementsPerGroup* | `number`  | Defines a number of elements per group. | 1 |
+| group.*groupContainer* | `string`  | Element type of a group. | "div" |
+| group.*groupClasses* | `string` \| `string[]`  | Classes to be added to the group DOM element. | [] |
+| group.*groupElementClasses* | `string` \| <br>`string[]` \|<br> `string[string[]]`  | Classes to be added to the elements of the group. | [] |
+
+#### elementsPerGroup: number (Default: 1)
+In order to create element grouping `group.elementsPerGroup` needs to be set to a number larger than 1.
+```js
+const groupOptions = { "elementsPerGroup" : 2 };
+const domifier = new DOMifyText ("My three words", {"group": groupOptions});
+
+domifier.DOMElements.forEach(element => console.log(element.outerHTML));
+// Output:
+// <div><div>My</div><div>three</div></div>
+// <div><div>words</div></div>
+```
+
+#### groupContainer: string (Default: "div")
+Sets a DOM element type for the group container
+```js
+const groupOptions = {
+  "elementsPerGroup" : 2,
+  "groupContainer": "p"
+};
+const domifier = new DOMifyText ("My three words", {"group": groupOptions});
+
+domifier.DOMElements.forEach(element => console.log(element.outerHTML));
+// Output:
+// <p><div>My</div><div>three</div></p>
+// <p><div>words</div></p>
+```
+
+#### groupClasses: string \| string[] (Default: [])
+Sets the classes for the container element. **NOTE:** The group container inherits the `options.elementClasses`.
+
+`options.elementClasses` is not set:
+  
+*as an array of strings:*
+```js
+const groupOptions = {
+  "elementsPerGroup" : 2,
+  "groupClasses": ["group-class"]
+};
+```
+*as a string:*
+```js
+const groupOptions = {
+  "elementsPerGroup" : 2,
+  "groupClasses": "group-class"
+};
+```
+
+```js
+const domifier = new DOMifyText ("My three words", {"group": groupOptions});
+
+domifier.DOMElements.forEach(element => console.log(element.outerHTML));
+// Output:
+// <div class="group-class"><div>My</div><div>three</div></div>
+// <div class="group-class"><div>words</div></div>
+```
+&nbsp;
+`options.elementClasses` is set:
+```js
+const groupOptions = {
+  "elementsPerGroup" : 2,
+  "groupClasses": ["group-class"]
+};
+const domifier = new DOMifyText ("My three words", {"group": groupOptions, "elementClasses": ["element-class"]});
+// Output:
+// <div class="element-class group-class"><div class="element-class">My</div><div class="element-class">three</div></div>
+// <div class="element-class group-class"><div class="element-class">words</div></div>
+```
+
+#### groupElementClasses: string \| string[] \| string[string[]] (Default: [])
+Sets the classes for the elements in the group. **NOTE:** All of the elements inherit the `options.elementClasses`.
+
+*As an string*:
+All elements in the group will receive the classes
+```js
+const groupOptions = {
+  "elementsPerGroup": 2,
+  "groupElementClasses": "group-element-class1 group-element-class2"
+};
+const domifier = new DOMifyText ("My three words", {"group": groupOptions});
+domifier.DOMElements.forEach(element => console.log(element.outerHTML));
+//Output:
+// <div><div class="group-element-class1 group-element-class2">My</div><div class="group-element-class1 group-element-class2">three</div></div>
+// <div><div class="group-element-class1 group-element-class2">words</div></div>
+```
+
+*As an array of strings:*
+Classes will be assigned based on the index, such that - the first element will receive classes at index 0 of the classes array, the second element will receive classes at index 1 of the classes array, etc.
+```js
+const groupOptions = {
+  "elementsPerGroup": 2,
+  "groupElementClasses": ["group-element-class1", "group-element-class2"]
+};
+const domifier = new DOMifyText ("My three words", {"group": groupOptions});
+domifier.DOMElements.forEach(element => console.log(element.outerHTML));
+//Output:
+// <div><div class="group-element-class1">My</div><div class="group-element-class2">three</div></div>
+// <div><div class="group-element-class1">words</div></div>
+```
+
+*As a multi-dimentional array:*
+Classes will be assigned based on the index.
+```js
+const groupOptions = {
+  "elementsPerGroup": 2,
+  "groupElementClasses": [["group-element-class1a", "group-element-class1b"], "group-element-class2"]
+};
+const domifier = new DOMifyText ("My three words", {"group": groupOptions});
+domifier.DOMElements.forEach(element => console.log(element.outerHTML));
+//Output:
+// <div><div class="group-element-class1a group-element-class1b">My</div><div class="group-element-class2">three</div></div>
+// <div><div class="group-element-class1a group-element-class1b">words</div></div>
+```
 
 ### Getters / Setters
 #### DOMElements() 
