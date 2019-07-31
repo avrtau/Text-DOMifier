@@ -1,16 +1,18 @@
 'use strict';
 
 const DOMifyText = (() => {
+  // Private Properties
   const inputText = Symbol("inputText");
   const elementOptions = Symbol("elementOptions");
 
+  // Private Methods
   const getRandomID = Symbol("getRandomID");
+  const combineClasses = Symbol("combineClasses");
 
   const defaultOptions = {
     elementType: "div",
     elementClasses: [],
     setIDs: false,
-    delimiter: " "
   };
 
   return class DOMifier {
@@ -20,9 +22,9 @@ const DOMifyText = (() => {
      * @param {string} text Text to be DOMified.
      * @param {Object} [options] Parameters for the created elements.
      * @param {string} [options.elementType] Element type to be created.
-     * @param {string[]} [options.classes] Classes to be added to the DOM Element.
+     * @param {string|string[]} [options.elementClasses] Classes to be added to the DOM Element.
      * @param {string|RegExp} [options.delimiter] A delimiter or a regular expression to divide words into elements.
-     * @param {bool} [options.withIDs] When true, random(ish) IDs will be added to the generated elements.
+     * @param {boolean} [options.setIDs] When true, random(ish) IDs will be added to the generated elements.
      */
     constructor (text = "", options = {}) {
       this[inputText] = text;
@@ -34,15 +36,15 @@ const DOMifyText = (() => {
      * @returns {Array<DOMElement>} - An Array of DOMElements created from the intial text.
     */
     get DOMElements() {
-      return this[inputText]
+      let elements = this[inputText]
         .split(this[elementOptions].delimiter)
         .map(word => {
           const wordTextNode = document.createTextNode(word);
           const options = this[elementOptions];
           const element = document.createElement(options.elementType.toUpperCase());
 
-          if (options.elementClasses.length !== 0 && options.elementClasses instanceof Array) {
-            element.className = options.elementClasses.join(' ');
+          if (options.elementClasses.length > 0) {
+            element.className = this[combineClasses](options.elementClasses);
           }
 
           if (options.setIDs === true) element.id = this[getRandomID]();
@@ -92,5 +94,10 @@ const DOMifyText = (() => {
       //from https://codewithmark.com/easily-generate-random-alphanumeric-string-in-javascript
       return Math.random().toString(36).replace('0.', '');
     }
+
+    [combineClasses](...classes) {
+      return classes.join(' ').replace(/[,]/g," ").trim();
+    }
+
   }
 })();

@@ -3,9 +3,9 @@ Creates an Array of DOMElements for every word in a given text.
 
 ## Getting Started
 ### Option 1:
-Clone the repo and include the DOMifyText.js in the `<head>` of your HTML file:
+Clone the repo and include the DOMifyText.min.js in the `<head>` of your HTML file:
 ```html
-<script src="../your/scripts/directory/path/DOMifyText.js"></script>
+<script src="../your/scripts/directory/path/DOMifyText.min.js"></script>
 ```
 
 ### Option 2:
@@ -20,13 +20,13 @@ Get the latest build from a CDN (jsdelivr.net)
 ##### Parameters
 
 | Name | Type | Description |  | Default |
-| ---- | ---- | ----------- | -------- | ------- |
+| ---- | ------- | -------- | -------- | ------- |
 | text | `string`  | Text to be DOMified. | &nbsp; | &nbsp; |
 | options | `Object`  | Parameters for the created elements. | *Optional* | &nbsp; |
 | options.*elementType* | `string`  | Element type to be created. | *Optional* | "div" |
-| options.*classes* | `Array.<string>`  | Classes to be added to the DOM Element. | *Optional* | [] |
+| options.*elementClasses* | `string` \| `string[]`  | Classes to be added to the DOM Element. | *Optional* | [] |
 | options.*delimiter* | `string` \| `RegExp`  | A delimiter or a regular expression to divide words into elements. | *Optional* | " " (space) |
-| options.*withIDs* | `bool`  | When true, random(ish) IDs will be added to the generated elements. | *Optional* | false |
+| options.*setIDs* | `bool`  | When true, random(ish) IDs will be added to the generated elements. | *Optional* | false |
 
 Create a new instance of the `DOMifyText` object:
 ```javascript
@@ -52,9 +52,16 @@ domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 
 #### Specifying classes
 Will add a class attribute to each element with specified classes
+  
+*as an array of strings:*
 ```javascript
 const domifier = new DOMifyText("My Text", {"classes": ["class1", "class2"]});
-
+```
+*as a string:*
+```js
+const domifier = new DOMifyText("My Text", {"classes": "class1 class2"});
+```
+```js
 domifier.DOMElements.forEach(element => console.log(element.outerHTML));
 // Output:
 // <div class="class1 class2">My</div>
