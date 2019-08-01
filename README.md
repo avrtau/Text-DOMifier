@@ -117,7 +117,7 @@ It is possible to group the elements using the `options.group` object. The DOM e
 | group.*elementsPerGroup* | `number`  | Defines a number of elements per group. | 1 |
 | group.*groupContainer* | `string`  | Element type of a group. | "div" |
 | group.*groupClasses* | `string` \| `string[]`  | Classes to be added to the group DOM element. | [] |
-| group.*groupElementClasses* | `string` \| <br>`string[]` \|<br> `string[string[]]`  | Classes to be added to the elements of the group. | [] |
+| group.*groupElementClasses* | `string` \| <br>`string[]` \|<br> `string[][]`  | Classes to be added to the elements of the group. | [] |
 
 #### elementsPerGroup: number (Default: 1)
 In order to create element grouping `group.elementsPerGroup` needs to be set to a number larger than 1.
@@ -187,7 +187,7 @@ const domifier = new DOMifyText ("My three words", {"group": groupOptions, "elem
 // <div class="element-class group-class"><div class="element-class">words</div></div>
 ```
 
-#### groupElementClasses: string \| string[] \| string[string[]] (Default: [])
+#### groupElementClasses: string \| string[] \| string[][] (Default: [])
 Sets the classes for the elements in the group. **NOTE:** All of the elements inherit the `options.elementClasses`.
 
 *As an string*:
@@ -335,7 +335,7 @@ Appends more classes to the Elements.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| classes | `Array.<string>`  | Array of classes to be added. |
+| classes | `string` \| `Array.<string>`  | A string or an array of classes to be added. |
 
 
 ##### Returns
@@ -347,7 +347,10 @@ const domifier = new DOMifyText("My Text", {elementClasses: ["class1", "class2"]
 
 // Add a class "class3" to the elements and log the result:
 domifier.addClasses(["class3"]).DOMElements.forEach(e => console.log(e.outerHTML));
-
+```
+*or as a string:*
+```js
+domifier.addClasses("class3").DOMElements.forEach(e => console.log(e.outerHTML));
 // Output:
 // <div class="class1 class2 class3">My</div>
 // <div class="class1 class2 class3">Text</div>

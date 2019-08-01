@@ -47,7 +47,8 @@ const DOMifyText = (() => {
       this[elementOptions].group = Object.assign({}, defaultOptions.group, options.group);
     }
 
-    /**Gets an Array of DOM elements
+    /**
+     * Gets an Array of DOM elements
      * @readonly
      * @returns {Array<DOMElement>} - An Array of DOMElements created from the intial text.
     */
@@ -102,13 +103,11 @@ const DOMifyText = (() => {
 
     /**
      * Appends more classes to the Elements.
-     * @param {string[]} classes - Array of classes to be added.
-     * @returns {DOMifier} - An instance of DOMifier (for chaining purposes).
+     * @param {string | string[]} classes A string or an array of classes to be added.
+     * @returns {DOMifier} An instance of DOMifier (for chaining purposes).
      */
     addClasses (classes = []) {
-      if (classes !== [] && classes instanceof Array) {
-        this[elementOptions].elementClasses = [...this[elementOptions].elementClasses, ...classes];
-      }
+      this[elementOptions].elementClasses = this[combineClasses](this[elementOptions].elementClasses, classes);
       return this;
     }
 
