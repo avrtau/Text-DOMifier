@@ -31,7 +31,7 @@ Get the latest build from a CDN (jsdelivr.net)
 | options.group.*elementsPerGroup* | `number`  | Defines a number of elements per group. | *Optional* | 1 |
 | options.group.*groupContainer* | `string`  | Element type of a group. | *Optional* | "div" |
 | options.group.*groupClasses* | `string` \| `string[]`  | Classes to be added to the group DOM element. | *Optional* | [] |
-| options.group.*groupElementClasses* | `string` \| <br>`string[]` \|<br> `string[string[]]`  | Classes to be added to the elements of the group. | *Optional* | [] |
+| options.group.*groupElementClasses* | `string` \| <br>`string[]` \|<br> `string[][]`  | Classes to be added to the elements of the group. | *Optional* | [] |
 
 Create a new instance of the `DOMifyText` object:
 ```javascript
